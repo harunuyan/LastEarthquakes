@@ -1,8 +1,11 @@
-package com.volie.lastearthquakes
+package com.volie.lastearthquakes.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.volie.lastearthquakes.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
