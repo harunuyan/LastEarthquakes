@@ -2,12 +2,16 @@ package com.volie.lastearthquakes.model
 
 import android.graphics.Color
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+@Entity(tableName = "earthquakes")
 data class Earthquake(
 
+    @PrimaryKey
     @SerializedName("earthquake_id")
     var uuid: String,
 
