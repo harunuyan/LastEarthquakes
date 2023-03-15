@@ -1,6 +1,5 @@
 package com.volie.lastearthquakes.db
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.volie.lastearthquakes.model.Earthquake
 
@@ -8,7 +7,7 @@ import com.volie.lastearthquakes.model.Earthquake
 interface EarthquakeDao {
 
     @Query("SELECT * FROM earthquakes")
-    fun getEarthquakes(): LiveData<List<Earthquake>>
+    suspend fun getEarthquakes(): List<Earthquake>
 
     @Query("SELECT * FROM earthquakes WHERE name LIKE '%' || :searchQuery || '%'")
     fun searchDatabase(searchQuery: String): List<Earthquake>

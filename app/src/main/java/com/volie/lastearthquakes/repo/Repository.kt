@@ -20,7 +20,7 @@ class Repository
         dao.deleteEarthquake(earthquake)
     }
 
-    fun getEarthquakesFromDb() = dao.getEarthquakes()
+    suspend fun getEarthquakesFromDb() = dao.getEarthquakes()
 
     suspend fun getEarthquakesFromApi(): Resource<EarthquakeWrapper> {
         return try {

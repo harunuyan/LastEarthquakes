@@ -19,10 +19,10 @@ class EarthquakeViewModel
     private val repository: Repository
 ) : ViewModel() {
 
-    private val _news = MutableLiveData<Resource<EarthquakeWrapper>>()
-    val news: LiveData<Resource<EarthquakeWrapper>> = _news
+    private val _earthquakes = MutableLiveData<Resource<EarthquakeWrapper>>()
+    val earthquakes: LiveData<Resource<EarthquakeWrapper>> = _earthquakes
 
-    private fun getEarthquakeFromDb(): LiveData<List<Earthquake>> {
+    private suspend fun getEarthquakeFromDb(): List<Earthquake> {
         return repository.getEarthquakesFromDb()
     }
 
@@ -32,43 +32,49 @@ class EarthquakeViewModel
 
 
     fun getEarthquakes() {
-        _news.postValue(Resource.loading(null))
+        _earthquakes.postValue(Resource.loading(null))
         viewModelScope.launch {
             val db = getEarthquakeFromDb()
-            if (db.value.isNullOrEmpty()) {
+            if (db.isNullOrEmpty()) {
                 val remoteData = getEarthquakeFromRemote()
-                _news.postValue(remoteData)
+                _earthquakes.postValue(remoteData)
                 return@launch
             }
+            _earthquakes.postValue(Resource.success(EarthquakeWrapper(db)))
         }
     }
 
     fun refreshEarthquakes() {
-        _news.postValue(Resource.loading(null))
+        _earthquakes.postValue(Resource.loading(null))
         viewModelScope.launch {
-            val refreshData = repository.getEarthquakesFromApi()
-            _news.postValue(refreshData)
+            val refreshData = getEarthquakeFromRemote()
+            if (refreshData.data != null) {
+                _earthquakes.postValue(refreshData)
+            } else {
+                val db = getEarthquakeFromDb()
+                _earthquakes.postValue(Resource.success(EarthquakeWrapper(db)))
+            }
         }
     }
 
     fun searchDatabase(searchQuery: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val search = repository.searchDatabase(searchQuery)
-            _news.postValue(Resource.success(EarthquakeWrapper(search)))
+            _earthquakes.postValue(Resource.success(EarthquakeWrapper(search)))
         }
     }
 
     fun sortLowMag() {
         viewModelScope.launch(Dispatchers.IO) {
             val sortLow = repository.sortLowMag()
-            _news.postValue(Resource.success(EarthquakeWrapper(sortLow)))
+            _earthquakes.postValue(Resource.success(EarthquakeWrapper(sortLow)))
         }
     }
 
     fun sortHighMag() {
         viewModelScope.launch(Dispatchers.IO) {
             val sortHigh = repository.sortHighMag()
-            _news.postValue(Resource.success(EarthquakeWrapper(sortHigh)))
+            _earthquakes.postValue(Resource.success(EarthquakeWrapper(sortHigh)))
         }
     }
 }

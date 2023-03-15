@@ -92,7 +92,7 @@ class EarthquakeFragment
     }
 
     fun initObserver() {
-        mViewModel.news.observe(viewLifecycleOwner) { resource ->
+        mViewModel.earthquakes.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.SUCCESS -> {
                     with(mBinding) {
