@@ -11,7 +11,7 @@ interface EarthquakeDao {
     fun getEarthquakes(): LiveData<List<Earthquake>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(earthquake: Earthquake)
+    suspend fun insert(earthquakeList: List<Earthquake>)
 
     @Delete
     suspend fun deleteEarthquake(earthquake: Earthquake)
