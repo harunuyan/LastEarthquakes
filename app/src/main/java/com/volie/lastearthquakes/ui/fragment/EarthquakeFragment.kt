@@ -42,7 +42,15 @@ class EarthquakeFragment
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         mViewModel.getEarthquakes()
+        pullToRefresh()
         initObserver()
+    }
+
+    private fun pullToRefresh() {
+        mBinding.swipeRefreshLayout.setOnRefreshListener {
+            mBinding.swipeRefreshLayout.isRefreshing = false
+            mViewModel.refreshEarthquakes()
+        }
     }
 
     private fun setupRecyclerView() {
@@ -75,6 +83,7 @@ class EarthquakeFragment
                     with(mBinding) {
                         progressBar.visibility = View.VISIBLE
                         recyclerView.visibility = View.GONE
+                        tvError.visibility = View.GONE
                     }
                 }
             }

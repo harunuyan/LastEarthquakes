@@ -25,7 +25,9 @@ class EarthquakeViewModel
         return repository.getEarthquakesFromDb()
     }
 
+
     fun getEarthquakes() {
+        _news.postValue(Resource.loading(null))
         viewModelScope.launch {
             val db = getEarthquakeFromDb()
             if (db.value.isNullOrEmpty()) {
@@ -33,6 +35,14 @@ class EarthquakeViewModel
                 _news.postValue(remoteData)
                 return@launch
             }
+        }
+    }
+
+    fun refreshEarthquakes() {
+        _news.postValue(Resource.loading(null))
+        viewModelScope.launch {
+            val refreshData = repository.getEarthquakesFromApi()
+            _news.postValue(refreshData)
         }
     }
 }
