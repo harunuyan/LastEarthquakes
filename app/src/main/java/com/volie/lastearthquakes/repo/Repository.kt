@@ -41,4 +41,12 @@ class Repository
     fun searchDatabase(searchQuery: String): List<Earthquake> {
         return dao.searchDatabase(searchQuery)
     }
+
+    suspend fun sortLowMag(): List<Earthquake> {
+        return dao.sortLowMag()
+    }
+
+    suspend fun sortHighMag(): List<Earthquake> {
+        return dao.sortHighMag()
+    }
 }

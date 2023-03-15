@@ -57,4 +57,18 @@ class EarthquakeViewModel
             _news.postValue(Resource.success(EarthquakeWrapper(search)))
         }
     }
+
+    fun sortLowMag() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val sortLow = repository.sortLowMag()
+            _news.postValue(Resource.success(EarthquakeWrapper(sortLow)))
+        }
+    }
+
+    fun sortHighMag() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val sortHigh = repository.sortHighMag()
+            _news.postValue(Resource.success(EarthquakeWrapper(sortHigh)))
+        }
+    }
 }

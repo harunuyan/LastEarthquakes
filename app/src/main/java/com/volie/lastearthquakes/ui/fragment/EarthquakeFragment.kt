@@ -67,6 +67,9 @@ class EarthquakeFragment
                     android.R.id.home -> requireActivity()
                         .onBackPressedDispatcher
                         .onBackPressed()
+                    R.id.menu_sort_last -> mViewModel.getEarthquakes()
+                    R.id.menu_sort_highMag -> mViewModel.sortHighMag()
+                    R.id.menu_sort_lowMag -> mViewModel.sortLowMag()
                 }
                 return true
             }

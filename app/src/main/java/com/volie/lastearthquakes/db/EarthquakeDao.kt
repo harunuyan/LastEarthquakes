@@ -13,6 +13,12 @@ interface EarthquakeDao {
     @Query("SELECT * FROM earthquakes WHERE name LIKE '%' || :searchQuery || '%'")
     fun searchDatabase(searchQuery: String): List<Earthquake>
 
+    @Query("SELECT * FROM earthquakes ORDER BY magnitude DESC")
+    suspend fun sortHighMag(): List<Earthquake>
+
+    @Query("SELECT * FROM earthquakes ORDER BY magnitude ASC")
+    suspend fun sortLowMag(): List<Earthquake>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(earthquakeList: List<Earthquake>)
 

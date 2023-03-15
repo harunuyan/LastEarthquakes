@@ -20,6 +20,9 @@
                 <item
                     android:id="@+id/menu_sort_lowMag"
                     android:title="@string/low_mag" />
+                <item
+                    android:id="@+id/menu_sort_last"
+                    android:title="@string/last_mag" />
             </menu>
         </item>
     </group>
