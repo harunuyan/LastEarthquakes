@@ -2,4 +2,8 @@
 <resources>
     <string name="last_earthquakes">Last Earthquakes</string>
     <string name="risk_map">Risk Map</string>
+    <string name="high_mag">High Mag</string>
+    <string name="low_mag">Low Mag</string>
+    <string name="sort">Sort</string>
+    <string name="search">Search</string>
 </resources>
