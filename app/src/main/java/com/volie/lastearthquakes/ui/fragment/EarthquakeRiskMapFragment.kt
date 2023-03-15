@@ -6,8 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.volie.lastearthquakes.databinding.FragmentEarthquakeRiskMapBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class EarthquakeRiskMapFragment : Fragment() {
+@AndroidEntryPoint
+class EarthquakeRiskMapFragment
+@Inject constructor() : Fragment() {
     private var _mBinding: FragmentEarthquakeRiskMapBinding? = null
     private val mBinding get() = _mBinding!!
 
