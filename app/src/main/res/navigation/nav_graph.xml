@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/earthquakeFragment">
+
+    <fragment
+        android:id="@+id/earthquakeFragment"
+        android:name="com.volie.lastearthquakes.ui.fragment.EarthquakeFragment"
+        android:label="EarthquakeFragment">
+        <action
+            android:id="@+id/action_earthquakeFragment_to_earthquakeMapsFragment"
+            app:destination="@id/earthquakeMapsFragment" />
+        <action
+            android:id="@+id/action_earthquakeFragment_to_earthquakeRiskMapFragment"
+            app:destination="@id/earthquakeRiskMapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/earthquakeMapsFragment"
+        android:name="com.volie.lastearthquakes.ui.fragment.EarthquakeMapsFragment"
+        android:label="EarthquakeMapsFragment">
+        <action
+            android:id="@+id/action_earthquakeMapsFragment_to_earthquakeFragment"
+            app:destination="@id/earthquakeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/earthquakeRiskMapFragment"
+        android:name="com.volie.lastearthquakes.ui.fragment.EarthquakeRiskMapFragment"
+        android:label="fragment_earthquake_risk_map"
+        tools:layout="@layout/fragment_earthquake_risk_map" />
+</navigation>
