@@ -7,6 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.elevation.SurfaceColors
 import com.volie.lastearthquakes.R
 import com.volie.lastearthquakes.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
-
+        setStatusAndNavBarColor()
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHostFragment.navController
@@ -34,6 +35,13 @@ class MainActivity : AppCompatActivity() {
 
         mBinding.bottomNavigationView.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfig)
+    }
+
+    fun setStatusAndNavBarColor() {
+        val window = window
+        val color = SurfaceColors.SURFACE_2.getColor(this)
+        window!!.statusBarColor = color
+        window.navigationBarColor = color
     }
 
     override fun onSupportNavigateUp(): Boolean {

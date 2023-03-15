@@ -11,6 +11,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.elevation.SurfaceColors
 import com.volie.lastearthquakes.R
 import com.volie.lastearthquakes.databinding.FragmentEarthquakeMapsBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +35,7 @@ class EarthquakeMapsFragment
         savedInstanceState: Bundle?
     ): View {
         _mBinding = FragmentEarthquakeMapsBinding.inflate(inflater, container, false)
+        setStatusAndNavBarColor()
         return mBinding.root
     }
 
@@ -72,6 +74,13 @@ class EarthquakeMapsFragment
             mapType = GoogleMap.MAP_TYPE_HYBRID
         }
 
+    }
+
+    private fun setStatusAndNavBarColor() {
+        val window = activity?.window
+        val color = SurfaceColors.SURFACE_2.getColor(requireContext())
+        window!!.statusBarColor = color
+        window.navigationBarColor = color
     }
 
     override fun onDestroy() {
