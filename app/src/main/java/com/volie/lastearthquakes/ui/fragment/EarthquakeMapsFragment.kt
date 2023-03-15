@@ -6,44 +6,76 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.volie.lastearthquakes.R
+import com.volie.lastearthquakes.databinding.FragmentEarthquakeMapsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class EarthquakeMapsFragment
 @Inject constructor() : Fragment() {
+    private var _mBinding: FragmentEarthquakeMapsBinding? = null
+    private val mBinding get() = _mBinding!!
+    private lateinit var args: EarthquakeMapsFragmentArgs
 
     private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        setLocationInfo(googleMap)
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_earthquake_maps, container, false)
+    ): View {
+        _mBinding = FragmentEarthquakeMapsBinding.inflate(inflater, container, false)
+        return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        arguments?.let {
+            args = EarthquakeMapsFragmentArgs.fromBundle(it)
+        }
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+
+        setDetails()
+    }
+
+    private fun setDetails() {
+        val args = args.earthquake
+        with(mBinding.include) {
+            txtName.text = args.name
+            txtDate.text = args.date
+            cardMag.setCardBackgroundColor(args.magnitudeColor)
+            rootInclude.setBackgroundColor(args.magnitudeColorLight)
+            txtTime.text = args.time
+            txtDepth.text = args.depth
+            txtMag.text = args.magnitudeText
+        }
+    }
+
+    private fun setLocationInfo(googleMap: GoogleMap) {
+        val lng = args.earthquake.geoJson.coordinates[0]
+        val lat = args.earthquake.geoJson.coordinates[1]
+        val earthquake = LatLng(lat, lng)
+        with(googleMap) {
+            addMarker(MarkerOptions().position(earthquake).title(args.earthquake.name))
+            moveCamera(CameraUpdateFactory.newLatLngZoom(earthquake, 10f))
+            mapType = GoogleMap.MAP_TYPE_HYBRID
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _mBinding = null
     }
 }

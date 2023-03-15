@@ -100,9 +100,6 @@ class EarthquakeFragment
                         progressBar.visibility = View.GONE
                         tvError.visibility = View.GONE
                     }
-                    resource.data?.let {
-                        mAdapter.submitList(it.data)
-                    }
                 }
                 Status.ERROR -> {
                     with(mBinding) {
@@ -117,6 +114,9 @@ class EarthquakeFragment
                         tvError.visibility = View.GONE
                     }
                 }
+            }
+            resource.data?.let {
+                mAdapter.submitList(it.data)
             }
         }
     }
