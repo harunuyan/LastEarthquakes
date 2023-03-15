@@ -47,9 +47,11 @@ class EarthquakeViewModel
     fun refreshEarthquakes() {
         _earthquakes.postValue(Resource.loading(null))
         viewModelScope.launch {
+            repository.deleteEarthquake()
             val refreshData = getEarthquakeFromRemote()
             if (refreshData.data != null) {
                 _earthquakes.postValue(refreshData)
+                repository.insertEarthquake(refreshData.data.data)
             } else {
                 val db = getEarthquakeFromDb()
                 _earthquakes.postValue(Resource.success(EarthquakeWrapper(db)))
