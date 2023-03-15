@@ -80,6 +80,9 @@ dependencies {
     // Coil
     implementation "io.coil-kt:coil:2.2.2"
 
+    //okHttpClient Logging Interceptor
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+
     // Hilt
     implementation "com.google.dagger:hilt-android:2.45"
     kapt "com.google.dagger:hilt-compiler:2.45"
