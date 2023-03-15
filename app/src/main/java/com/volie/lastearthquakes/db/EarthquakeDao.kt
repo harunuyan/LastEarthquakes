@@ -1,17 +1,18 @@
 package com.volie.lastearthquakes.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.lifecycle.LiveData
+import androidx.room.*
 import com.volie.lastearthquakes.model.Earthquake
 
 @Dao
 interface EarthquakeDao {
 
     @Query("SELECT * FROM earthquakes")
-    suspend fun getEarthquakes(): List<Earthquake>
+    fun getEarthquakes(): LiveData<List<Earthquake>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(list: List<Earthquake>)
+    suspend fun insert(earthquake: Earthquake)
+
+    @Delete
+    suspend fun deleteEarthquake(earthquake: Earthquake)
 }
