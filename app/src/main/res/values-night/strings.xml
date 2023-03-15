@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">LastEarthquakes</string>
     <string name="last_earthquakes">Last Earthquakes</string>
     <string name="risk_map">Risk Map</string>
 </resources>
