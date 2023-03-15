@@ -1,13 +1,16 @@
 package com.volie.lastearthquakes.ui.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.volie.lastearthquakes.R
 import com.volie.lastearthquakes.databinding.FragmentEarthquakeBinding
 import com.volie.lastearthquakes.ui.adapter.EarthquakeAdapter
 import com.volie.lastearthquakes.util.Status
@@ -17,7 +20,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class EarthquakeFragment
-@Inject constructor() : Fragment() {
+@Inject constructor() : Fragment(), SearchView.OnQueryTextListener {
     private var _mBinding: FragmentEarthquakeBinding? = null
     private val mBinding get() = _mBinding!!
     private val mViewModel: EarthquakeViewModel by viewModels()
@@ -40,10 +43,35 @@ class EarthquakeFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupMenu()
         setupRecyclerView()
         mViewModel.getEarthquakes()
         pullToRefresh()
         initObserver()
+    }
+
+    private fun setupMenu() {
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.earthquake_fargment_search_menu, menu)
+
+                val search = menu.findItem(R.id.menu_search)
+                val searchView = search.actionView as SearchView
+                searchView.isSubmitButtonEnabled = true
+                searchView.setOnQueryTextListener(this@EarthquakeFragment)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    android.R.id.home -> requireActivity()
+                        .onBackPressedDispatcher
+                        .onBackPressed()
+                }
+                return true
+            }
+
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun pullToRefresh() {
@@ -88,6 +116,17 @@ class EarthquakeFragment
                 }
             }
         }
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        if (newText != null) {
+            mViewModel.searchDatabase(newText)
+        }
+        return true
     }
 
     override fun onDestroyView() {

@@ -37,4 +37,8 @@ class Repository
             Resource.error("Error!*3${e}", null)
         }
     }
+
+    fun searchDatabase(searchQuery: String): List<Earthquake> {
+        return dao.searchDatabase(searchQuery)
+    }
 }

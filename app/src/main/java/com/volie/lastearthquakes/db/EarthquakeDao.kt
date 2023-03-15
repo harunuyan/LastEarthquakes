@@ -10,6 +10,9 @@ interface EarthquakeDao {
     @Query("SELECT * FROM earthquakes")
     fun getEarthquakes(): LiveData<List<Earthquake>>
 
+    @Query("SELECT * FROM earthquakes WHERE name LIKE '%' || :searchQuery || '%'")
+    fun searchDatabase(searchQuery: String): List<Earthquake>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(earthquakeList: List<Earthquake>)
 

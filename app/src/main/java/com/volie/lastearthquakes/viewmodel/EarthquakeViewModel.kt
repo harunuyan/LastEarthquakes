@@ -9,6 +9,7 @@ import com.volie.lastearthquakes.model.EarthquakeWrapper
 import com.volie.lastearthquakes.repo.Repository
 import com.volie.lastearthquakes.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,13 +26,17 @@ class EarthquakeViewModel
         return repository.getEarthquakesFromDb()
     }
 
+    private suspend fun getEarthquakeFromRemote(): Resource<EarthquakeWrapper> {
+        return repository.getEarthquakesFromApi()
+    }
+
 
     fun getEarthquakes() {
         _news.postValue(Resource.loading(null))
         viewModelScope.launch {
             val db = getEarthquakeFromDb()
             if (db.value.isNullOrEmpty()) {
-                val remoteData = repository.getEarthquakesFromApi()
+                val remoteData = getEarthquakeFromRemote()
                 _news.postValue(remoteData)
                 return@launch
             }
@@ -43,6 +48,13 @@ class EarthquakeViewModel
         viewModelScope.launch {
             val refreshData = repository.getEarthquakesFromApi()
             _news.postValue(refreshData)
+        }
+    }
+
+    fun searchDatabase(searchQuery: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val search = repository.searchDatabase(searchQuery)
+            _news.postValue(Resource.success(EarthquakeWrapper(search)))
         }
     }
 }
