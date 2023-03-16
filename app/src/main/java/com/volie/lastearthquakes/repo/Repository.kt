@@ -16,8 +16,8 @@ class Repository
         dao.insert(earthquakeList)
     }
 
-    suspend fun deleteEarthquake(earthquake: Earthquake) {
-        dao.deleteEarthquake(earthquake)
+    suspend fun deleteEarthquake() {
+        dao.deleteEarthquake()
     }
 
     suspend fun getEarthquakesFromDb() = dao.getEarthquakes()

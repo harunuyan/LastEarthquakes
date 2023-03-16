@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.elevation.SurfaceColors
 import com.volie.lastearthquakes.R
 import com.volie.lastearthquakes.databinding.FragmentEarthquakeBinding
 import com.volie.lastearthquakes.ui.adapter.EarthquakeAdapter
@@ -38,6 +39,7 @@ class EarthquakeFragment
         savedInstanceState: Bundle?
     ): View {
         _mBinding = FragmentEarthquakeBinding.inflate(inflater, container, false)
+        setStatusAndNavBarColor()
         return mBinding.root
     }
 
@@ -130,6 +132,13 @@ class EarthquakeFragment
             mViewModel.searchDatabase(newText)
         }
         return true
+    }
+
+    private fun setStatusAndNavBarColor() {
+        val window = activity?.window
+        val color = SurfaceColors.SURFACE_2.getColor(requireContext())
+        window!!.statusBarColor = color
+        window.navigationBarColor = color
     }
 
     override fun onDestroyView() {

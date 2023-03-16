@@ -21,6 +21,6 @@ interface EarthquakeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(earthquakeList: List<Earthquake>)
 
-    @Delete
-    suspend fun deleteEarthquake(earthquake: Earthquake)
+    @Query("DELETE FROM earthquakes")
+    suspend fun deleteEarthquake()
 }
