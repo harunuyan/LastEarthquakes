@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/earthquakeFragment"
-        android:icon="@drawable/ic_last_earthquakes"
+        android:icon="@drawable/ic_home"
         android:title="@string/last_earthquakes" />
-    <item
-        android:id="@+id/earthquakeRiskMapFragment"
-        android:icon="@drawable/ic_map"
-        android:title="@string/risk_map" />
+<!--    <item-->
+<!--        android:id="@+id/earthquakeRiskMapFragment"-->
+<!--        android:icon="@drawable/ic_map"-->
+<!--        android:title="@string/risk_map" />-->
 </menu>
