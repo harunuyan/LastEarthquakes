@@ -27,9 +27,9 @@ class EarthquakeFragment
     private val mViewModel: EarthquakeViewModel by viewModels()
     private val mAdapter: EarthquakeAdapter by lazy {
         EarthquakeAdapter {
-            /*val action =
+            val action =
                 EarthquakeFragmentDirections.actionEarthquakeFragmentToEarthquakeMapsFragment(it)
-            findNavController().navigate(action)*/
+            findNavController().navigate(action)
         }
     }
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.EarthquakeRiskMapFragment"
-    android:background="#9D9E9D">
+    android:background="#C9CCC9">
 
     <ImageView
         android:id="@+id/img_risk_map"
