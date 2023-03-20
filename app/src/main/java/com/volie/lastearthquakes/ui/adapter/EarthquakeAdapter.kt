@@ -20,7 +20,6 @@ class EarthquakeAdapter(
             with(binding) {
                 txtMag.text = items.magnitudeText
                 txtName.text = items.name
-                txtDepth.text = items.depth
                 txtDate.text = items.date
                 txtTime.text = items.time
                 divider.setBackgroundColor(items.magnitudeColor)
