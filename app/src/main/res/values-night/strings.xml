@@ -7,5 +7,6 @@
     <string name="sort">Sort</string>
     <string name="search">Search</string>
     <string name="error">Error!</string>
-    <string name="last_mag">Last Mag</string>
+    <string name="last_mag">Last Earthquakes</string>
+    <string name="location">Location</string>
 </resources>
