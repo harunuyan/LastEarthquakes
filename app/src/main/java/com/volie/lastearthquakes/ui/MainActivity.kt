@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(mBinding.root)
         setStatusAndNavBarColor()
 
-        val navHostFragment =
+/*        val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHostFragment.navController
         val appBarConfig =
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             )
 
         mBinding.bottomNavigationView.setupWithNavController(navController)
-        setupActionBarWithNavController(navController, appBarConfig)
+        setupActionBarWithNavController(navController, appBarConfig)*/
     }
 
     override fun onSupportNavigateUp(): Boolean {
