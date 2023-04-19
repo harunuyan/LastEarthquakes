@@ -1,14 +1,18 @@
 package com.volie.lastearthquakes.ui.fragment
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.elevation.SurfaceColors
 import com.volie.lastearthquakes.R
@@ -27,9 +31,6 @@ class EarthquakeFragment
     private val mViewModel: EarthquakeViewModel by viewModels()
     private val mAdapter: EarthquakeAdapter by lazy {
         EarthquakeAdapter {
-            val action =
-                EarthquakeFragmentDirections.actionEarthquakeFragmentToEarthquakeMapsFragment(it)
-            findNavController().navigate(action)
         }
     }
 
@@ -47,7 +48,7 @@ class EarthquakeFragment
         super.onViewCreated(view, savedInstanceState)
         setupMenu()
         setupRecyclerView()
-        mViewModel.getEarthquakes()
+        mViewModel.refreshEarthquakes()
         pullToRefresh()
         initObserver()
     }
@@ -69,6 +70,7 @@ class EarthquakeFragment
                     android.R.id.home -> requireActivity()
                         .onBackPressedDispatcher
                         .onBackPressed()
+
                     R.id.menu_sort_last -> mViewModel.getEarthquakes()
                     R.id.menu_sort_highMag -> mViewModel.sortHighMag()
                     R.id.menu_sort_lowMag -> mViewModel.sortLowMag()
@@ -106,12 +108,14 @@ class EarthquakeFragment
                         mAdapter.submitList(it.data)
                     }
                 }
+
                 Status.ERROR -> {
                     with(mBinding) {
                         progressBar.visibility = View.GONE
                         tvError.visibility = View.VISIBLE
                     }
                 }
+
                 Status.LOADING -> {
                     with(mBinding) {
                         progressBar.visibility = View.VISIBLE
