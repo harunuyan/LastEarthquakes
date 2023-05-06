@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/earthquakeFragment">
+    app:startDestination="@id/splashScreenFragment">
 
     <fragment
         android:id="@+id/earthquakeFragment"
@@ -29,4 +29,12 @@
         android:name="com.volie.lastearthquakes.ui.fragment.EarthquakeRiskMapFragment"
         android:label="fragment_earthquake_risk_map"
         tools:layout="@layout/fragment_earthquake_risk_map" />
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.volie.lastearthquakes.ui.fragment.SplashScreenFragment"
+        android:label="SplashScreenFragment" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_earthquakeFragment"
+            app:destination="@id/earthquakeFragment" />
+    </fragment>
 </navigation>
