@@ -9,14 +9,14 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_mag"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:cardCornerRadius="10dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp">
 
         <TextView
             android:id="@+id/txt_mag"
@@ -33,14 +33,13 @@
 
     <TextView
         android:id="@+id/txt_name"
-        android:layout_width="0dp"
+        android:layout_width="317dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         android:fontFamily="@font/roboto_bold"
         android:textColor="@color/black"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/card_mag"
         app:layout_constraintTop_toTopOf="@id/card_mag"
         tools:text="@tools:sample/full_names" />
@@ -49,19 +48,17 @@
         android:id="@+id/img_calendar"
         android:layout_width="18dp"
         android:layout_height="18dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginBottom="2dp"
         android:src="@drawable/ic_calendar"
         app:layout_constraintBottom_toBottomOf="@id/card_mag"
         app:layout_constraintStart_toStartOf="@id/txt_name"
-        app:layout_constraintTop_toTopOf="@id/txt_name"
+        app:layout_constraintTop_toBottomOf="@id/txt_name"
         app:tint="@color/black" />
 
     <TextView
         android:id="@+id/txt_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="6dp"
         android:fontFamily="@font/roboto_medium"
         android:textColor="@color/black"
         android:textSize="12sp"
@@ -74,9 +71,7 @@
         android:id="@+id/img_time"
         android:layout_width="18dp"
         android:layout_height="18dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginStart="10dp"
         android:src="@drawable/ic_alarm"
         app:layout_constraintBottom_toBottomOf="@id/img_calendar"
         app:layout_constraintStart_toEndOf="@id/txt_date"
@@ -87,20 +82,20 @@
         android:id="@+id/txt_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="6dp"
         android:fontFamily="@font/roboto_medium"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/txt_date"
+        app:layout_constraintBottom_toBottomOf="@id/img_calendar"
         app:layout_constraintStart_toEndOf="@id/img_time"
-        app:layout_constraintTop_toTopOf="@id/txt_date"
+        app:layout_constraintTop_toTopOf="@id/img_calendar"
         tools:text="@tools:sample/date/ddmmyy" />
 
     <ImageView
         android:id="@+id/img_depth"
         android:layout_width="18dp"
         android:layout_height="18dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="10dp"
         android:src="@drawable/ic_depth"
         app:layout_constraintBottom_toBottomOf="@id/img_calendar"
         app:layout_constraintStart_toEndOf="@id/txt_time"
@@ -110,22 +105,21 @@
         android:id="@+id/txt_depth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="6dp"
         android:fontFamily="@font/roboto_medium"
         android:text="5.5"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/txt_time"
+        app:layout_constraintBottom_toBottomOf="@id/img_calendar"
         app:layout_constraintStart_toEndOf="@id/img_depth"
-        app:layout_constraintTop_toTopOf="@id/txt_time" />
+        app:layout_constraintTop_toTopOf="@id/img_calendar" />
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/divider"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:background="@android:color/holo_blue_dark" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
